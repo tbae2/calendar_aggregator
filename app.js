@@ -2,7 +2,7 @@ const request = require('request');
 const cheerio = require('cheerio');
 const fs = require('fs');
 const mongodb = require('mongodb');
-
+const mongoconnect = require('./mongoconnect');
 const rosUrl = {
     url: 'http://www.roswellgov.com/discover-us/calendar',
     headers: {
@@ -46,7 +46,12 @@ var holdEvents = [];
 
     });
     //test write to json file
-    fs.writeFile('calendar.json',JSON.stringify(holdEvents,null,4),function(err){
-      console.log('saved to jsonfile');
-    });
+    //fs.writeFile('calendar.json',JSON.stringify(holdEvents,null,4),function(err){
+      //console.log('saved to jsonfile');
+    //});
+
+    mongoconnect('roswell',holdEvents);
+
+
+
 });
