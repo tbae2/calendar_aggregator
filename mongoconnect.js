@@ -18,11 +18,8 @@ MongoClient.connect(mongoUrl, function(err, db) {
 
 
 var calInsert = function(calendar, caldata) {
+
   console.log(calendar);
- console.log(caldata);
-
-
-
     var calendarUpdate = dbConn.collection(calendar);
 
     calendarUpdate.insert(caldata), function(err, result){
