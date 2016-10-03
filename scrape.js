@@ -1,25 +1,19 @@
 const request = require('request');
 const cheerio = require('cheerio');
-const fs = require('fs');
-const mongodb = require('mongodb');
-const mongoconnect = require('./mongoconnect');
-// const rosUrl = {
-//     url: 'http://www.roswellgov.com/discover-us/calendar',
-//     headers: {
-//         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
-//     }
-// };
+// const fs = require('fs');
+// const mongodb = require('mongodb');
+// const mongoconnect = require('./mongoconnect');
 
 const header = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36'
 };
 
 const urls = [
-  {
-    url: 'http://www.roswellgov.com/discover-us/calendar',
-    headers: header,
-    id: 'roswell'
-},
+//   {
+//     url: 'http://www.roswellgov.com/discover-us/calendar',
+//     headers: header,
+//     id: 'roswell'
+// },
 {
     url: 'http://www.mariettacalendar.com/?ai1ec=action~month|request_format~html',
     headers: header,
@@ -89,7 +83,7 @@ urls.forEach(function(cal) {
 
         }
         //console.log(holdEvents);
-        mongoconnect(cal.id, holdEvents);
+        // mongoconnect(cal.id, holdEvents);
         holdEvents = [];
     });
 });
