@@ -26,6 +26,7 @@ var calInsert = function(calendar, caldata) {
       if(err){
         console.log(error);
       }
+        console.log(result);
     };
 
     console.log('inserted docs into the ' + calendar + ' collection');
