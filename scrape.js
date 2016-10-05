@@ -73,7 +73,7 @@ urls.forEach(function(cal) {
                     console.log(errr);
                   }
                 });
-                console.log(calData);
+              //  console.log(calData);
             });
         };
         if (cal.id === 'marietta') {

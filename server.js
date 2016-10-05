@@ -2,21 +2,20 @@ const express = require('express');
 const bodyparser = require('body-parser');
 const mongoose = require('mongoose');
 const app = express();
-const calendarevent = require('./models/calendarevent');
+const CalEvent = require('./models/calendarevent');
+const scraper = require('./scrape');
 
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended: false}));
 
-
-
-
-
-mongoose.connect('mongodb://localhost:27017/calendardb');
-
-mongoose.connection.on('error', function(){
-    console.log('connection error, make sure mongodb is accessible');
+app.get('/', function(req, res){
+    CalEvent.find({}, function(err, users){
+        res.send(users);
+    });
 })
-mongoose.connection.on('open', function(){
-  console.log('connected to mongodb');
-})
+
+
+
 
 
 var server = app.listen(3000, function(){
