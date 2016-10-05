@@ -3,12 +3,12 @@ var mongoose  = require('mongoose');
 
 var eventSchema = new mongoose.Schema({
         calendarId: String,
-        eventData: [ { day: Number,
-                        events: [time: String,
-                                  title: String,
-                                  url: String
-                                ]
-                      }]
+        day: Number,
+        eventData: [ {  eventNumber: Number,
+                        time: String,
+                        title: String,
+                          url: String
+                    }]
 });
 
 
