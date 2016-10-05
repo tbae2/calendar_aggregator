@@ -1,5 +1,10 @@
 var mongoose  = require('mongoose');
 
+mongoose.connect('mongodb://localhost:27017/calendardb');
+
+mongoose.connection.on('error', function(){
+    console.log('connection error, make sure mongodb is accessible');
+})
 
 var eventSchema = new mongoose.Schema({
         calendarId: String,
@@ -12,4 +17,4 @@ var eventSchema = new mongoose.Schema({
 });
 
 
-module.exports = mongoose.model('Event', eventSchema);
+module.exports = mongoose.model('CalEvent', eventSchema);

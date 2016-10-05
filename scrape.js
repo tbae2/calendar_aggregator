@@ -3,6 +3,7 @@ const cheerio = require('cheerio');
 // const fs = require('fs');
 // const mongodb = require('mongodb');
 // const mongoconnect = require('./mongoconnect');
+const CalEvent = require('./models/calendarevent');
 
 
 
@@ -11,30 +12,30 @@ const header = {
 };
 
 const urls = [
-//   {
-//     url: 'http://www.roswellgov.com/discover-us/calendar',
-//     headers: header,
-//     id: 'roswell'
-// },
+  {
+    url: 'http://www.roswellgov.com/discover-us/calendar',
+    headers: header,
+    id: 'roswell'
+},
 {
     url: 'http://www.mariettacalendar.com/?ai1ec=action~month|request_format~html',
     headers: header,
     id: 'marietta'
-}]
+}
+]
 
 urls.forEach(function(cal) {
-    request(cal.url, function(err, response, html) {
+    request(cal, function(err, response, html) {
         if (err) {
             return err;
         };
-        //console.log(html);
 
         var holdEvents = [];
         var calData = {};
         var holdDayEvents = [];
         var $ = cheerio.load(html);
-        //var testData = $('.ai1ec-day').find('.ai1ec-event-title').text;
-        //  console.log(testData);
+
+
         if (cal.id === 'roswell') {
 
             $('.calendar_day_with_items').each(function(i, element) {
@@ -56,10 +57,23 @@ urls.forEach(function(cal) {
 
                 });
                 //build the overall calendar day object of events
-                calDayData.events = holdDayEvents;
+                calData.eventData = holdDayEvents;
                 //push the build object to the holdEvents array
-                holdEvents.push(calDayData);
+                holdDayEvents = [];
 
+                //utilize mongoose module, match schema and import to mongodb
+                var calevent = new CalEvent({
+                  calendarId: calData.calendarId,
+                  day: calData.day,
+                  eventData: calData.eventData
+                });
+
+                calevent.save(function(err){
+                  if(err){
+                    console.log(errr);
+                  }
+                });
+                console.log(calData);
             });
         };
         if (cal.id === 'marietta') {
@@ -81,15 +95,28 @@ urls.forEach(function(cal) {
                 });
 
             calData.eventData = holdDayEvents;
+            //blank holddayevents after object build
             holdDayEvents = [];
               //  holdEvents.push(calDayData);
 
+          //utilize mongoose module, match schema and import to mongodb
+              var calevent = new CalEvent({
+                calendarId: calData.calendarId,
+                day: calData.day,
+                eventData: calData.eventData
+              });
+
+              calevent.save(function(err){
+                if(err){
+                  console.log(errr);
+                }
+              });
+
+              //console.log(calData);
+
             });
 
-        }
-        //console.log(holdEvents);
-        console.log(calData);
-        // mongoconnect(cal.id, holdEvents);
-        holdEvents = [];
+        };
+
     });
 });
