@@ -3,7 +3,7 @@ const bodyparser = require('body-parser');
 const mongoose = require('mongoose');
 const app = express();
 const CalEvent = require('./models/calendarevent');
-const scraper = require('./scrape');
+const scraper = require('./app/utils/scrape');
 
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended: false}));
