@@ -2,8 +2,8 @@ const express = require('express');
 const bodyparser = require('body-parser');
 const mongoose = require('mongoose');
 const app = express();
-const CalEvent = require('./models/calendarevent');
-const scraper = require('./app/utils/scrape');
+var CalEvent = require('./models/calevent');
+const scraper = require('./utils/scrape');
 
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended: false}));
@@ -13,8 +13,6 @@ app.get('/', function(req, res){
         res.send(users);
     });
 })
-
-
 
 
 
